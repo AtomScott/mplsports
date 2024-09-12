@@ -1,0 +1,15 @@
+[project]
+name = "mplsports"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "matplotlib>=3.7.5",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ipykernel>=6.29.5",
+    "jupyter>=1.1.1",
+]
