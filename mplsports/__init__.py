@@ -1,23 +1,27 @@
-from .soccer import SoccerPitch
-from .basketball import BasketballPitch
-from .tennis import TennisPitch
-from .handball import HandballPitch
+from .pitch.soccer import SoccerPitch
+from .pitch.basketball import BasketballCourt
+from .pitch.tennis import TennisCourt
+from .pitch.volleyball import VolleyballCourt
+from .pitch.handball import HandballCourt
 
 
-class Pitch:
-    def __init__(self, sport="soccer", **kwargs):
-        pitch_classes = {
-            "soccer": SoccerPitch,
-            "basketball": BasketballPitch,
-            "tennis": TennisPitch,
-            "handball": HandballPitch,
-        }
-
-        pitch_class = pitch_classes.get(sport.lower())
-        if pitch_class:
-            self.pitch = pitch_class(**kwargs)
+class Thing:
+    def __new__(cls, sport, **kwargs):
+        if sport.lower() == "soccer":
+            return SoccerPitch(**kwargs)
+        elif sport.lower() == "basketball":
+            return BasketballCourt(**kwargs)
+        elif sport.lower() == "tennis":
+            return TennisCourt(**kwargs)
+        elif sport.lower() == "volleyball":
+            return VolleyballCourt(**kwargs)
+        elif sport.lower() == "handball":
+            return HandballCourt(**kwargs)
         else:
-            raise NotImplementedError(f"Sport '{sport}' is not implemented yet.")
+            raise ValueError(f"Unsupported sport: {sport}")
 
-    def __getattr__(self, name):
-        return getattr(self.pitch, name)
+
+Pitch = Thing
+Court = Thing
+Field = Thing
+Ground = Thing
